@@ -4,7 +4,7 @@
 
 ## Description
 
-The AMR (Antimicrobial Resistance) Sequence Retrieval Tool is a Python script that facilitates the retrieval of AMR-related sequences from a given input FASTA file based on start and end positions provided in an Excel file. It processes the input files and generates an Excel file containing the retrieved sequences along with their associated resistance information.
+The AMR (Antimicrobial Resistance) Sequence Retrieval Tool is a Python script that facilitates the retrieval of AMR sequences from a given input FASTA file based on start and end positions provided in an Excel file. It processes the input files and generates an Excel file containing the retrieved sequences along with their associated informations.
 
 ## Features
 
