@@ -1,67 +1,108 @@
-"# Bioinformatics-Python-Scripts" 
+# AMR Sequence Retrieval
 
-**AMR Sequence Retrieval Tool**
+This Python script extracts antimicrobial resistance (AMR) sequences from a given FASTA file, using start and end positions provided in an Excel file. The extracted sequences, along with their lengths and associated resistance information, are saved to a new Excel file.
 
-## Description
+### Pre-requisites:
+- **Python 3.x**
+- Required packages:
+  - `Biopython`
+  - `openpyxl`
 
-The AMR (Antimicrobial Resistance) Sequence Retrieval Tool is a Python script that facilitates the retrieval of AMR sequences from a given input FASTA file based on start and end positions provided in an Excel file. It processes the input files and generates an Excel file containing the retrieved sequences along with their associated informations.
+You can install the required packages using pip:
+pip install biopython openpyxl
 
-## Features
+### Input Files:
+1. **FASTA file**: Contains sequence data to be processed.
+2. **Excel (.xlsx) file**: Contains columns for:
+   - Sequence identifiers
+   - Start and end positions for subsequences
+   - Resistance information for each sequence.
 
-- Retrieve AMR-related sequences from a given input FASTA file.
-- Utilize start and end positions provided in an Excel file to extract sequences.
-- Generate an Excel file with the retrieved sequences and their resistance information.
+### Output:
+- A new Excel file will be generated with the following columns:
+  - Sequence identifier
+  - Full sequence
+  - Sequence length
+  - Start and end positions of the extracted subsequences
+  - Extracted subsequence
+  - Length of the extracted subsequence
+  - Resistance information
 
-## Dependencies
+### Usage:
+To run the script, use the following command:
+python amr_sequence_retrieval.py <input_fasta> <start_end_xlsx>
 
-- Python 3.x
-- Biopython
-- openpyxl
-- tkinter (included in standard Python library)
+### Example:
+python amr_sequence_retrieval.py sequences.fasta start_end_data.xlsx
 
-## Installation
+### Error Handling:
+- **FileNotFoundError**: If the input FASTA or Excel file is not found, an error message will be displayed.
+- **ValueError**: If the start or end values cannot be converted to integers, an error message will be shown.
+- **KeyError**: If a required column is missing in the Excel file, a warning will be issued.
+- **General Exceptions**: Any other unexpected errors during file processing will display a generic error message.
 
-1. Clone this repository to your local machine.
-2. Install the required dependencies using pip: pip install biopython openpyxl
-   
-## Usage
+### Script Overview:
+1. **get_cut_sequence(sequence, start, end)**: Extracts a subsequence from a given sequence based on start and end positions.
+2. **process_xlsx(xlsx_file)**: Reads the start, end, and resistance data from the Excel file and returns it as a dictionary.
+3. **process_fasta(input_fasta, start_end_xlsx)**: Reads the input FASTA file, processes each sequence, and extracts the subsequences based on the data in the Excel file. The results are saved to a new Excel file.
+4. **main()**: Handles command-line arguments, validates files, and calls the appropriate functions to process the data.
 
-1. Run the script using Python: python amr_gui.py
-2. Browse and select the input FASTA file containing the sequences you want to process.
-3. Browse and select the Excel file containing the start and end positions for the sequences.
-4. Click on the "Retrieve AMR Sequences" button to initiate the sequence retrieval process.
-5. The output Excel file with the retrieved sequences will be generated in the Downloads directory.
------------------------------------------------------------------------------------------------------------------------------
-**Excel to FASTA Converter**
+### Notes:
+- The script checks if the provided FASTA and Excel files exist. If they don't, the script will terminate with an appropriate error message.
+- The output Excel file will be saved in the same directory as the input FASTA file, with the name `input_identifier_AMR.xlsx`, where `input_identifier` is a part of the FASTA file name.
 
-## Description
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Excel to FASTA Converter
 
-The Excel to FASTA Converter is a Python script that allows users to convert sequences stored in an Excel file into a FASTA file format commonly used in bioinformatics applications. This tool simplifies the process of converting data between these two formats, making it easier to work with sequence data in various bioinformatics workflows.
+This script (`excel_to_fasta_converter.py`) converts sequence data from an Excel file into FASTA format. It appends unique identifiers to duplicated entries and saves the output in a FASTA file. Ideal for bioinformatics applications.
 
-## Features
+### Pre-requisites:
+- **Python 3.x**
+- Required packages: `pandas`
+  
+Install `pandas` by running:
+pip install pandas
 
-- Conversion of Excel to FASTA: The converter allows users to convert sequence data stored in an Excel file into the FASTA file format commonly used in bioinformatics.
-- User-friendly Interface: The tool provides a simple and intuitive graphical user interface (GUI) using tkinter, making it easy for users to select input files and initiate the conversion process.
-- Automatic Identifier Handling: The converter automatically handles identifiers in the input Excel file, ensuring that each sequence in the output FASTA file has a unique identifier.
-- Output Location: The converted FASTA file is generated in the default download directory with the same base name as the input Excel file, simplifying the process of locating the output file.
+### Running the Script:
+1. Place the `excel_to_fasta_converter.py` file in your desired directory.
 
-## Dependencies
+2. Prepare the input Excel file (.xlsx) with two required columns:
+   - `Input Sequence Identifier`: A unique identifier for each sequence.
+   - `Sequence from Start and End`: The nucleotide or protein sequence to be converted.
 
-- pandas
-- tkinter
+3. In a command-line interface, navigate to the directory containing `excel_to_fasta_converter.py`:
+   cd path/to/your/directory
 
-## Installation
+4. Ensure the script is executable:
+   chmod +x excel_to_fasta_converter.py
+  
+5. Run the script using:
+   python excel_to_fasta_converter.py <input_excel_file> [output_fasta_file]
+ 
+   - <input_excel_file>: Path to the Excel file.
+   - [output_fasta_file]: (Optional) Path to save the FASTA file. If omitted, the output will be saved with the same name as the input file but with a `.fasta` extension.
 
-1. Clone this repository to your local machine.
-2. Install the required dependencies using pip: pip install pandas
+### Example:
+- To run with both input and output file names:
+  python excel_to_fasta_converter.py sequences.xlsx output.fasta
 
-## Usage
+- To run with only the input file:
+  python excel_to_fasta_converter.py sequences.xlsx
 
-1. **Select Excel File**: Click the "Browse" button to select the input Excel file containing the sequences to be converted.
+  Output file will be `sequences.fasta`.
 
-2. **Convert to FASTA**: After selecting the input Excel file, click the "Convert to FASTA" button to initiate the conversion process.
+### Results:
+- The FASTA file will contain each sequence and identifier in the following format:
 
-3. **Result**: The converted FASTA file will be generated in the default download directory with the same base name as the input Excel file.
+  >Identifier
+  Sequence
+
+### Notes:
+- Error handling:
+  - `FileNotFoundError`: If the specified Excel file is not found.
+  - `pd.errors.EmptyDataError`: If the Excel file is empty.
+  - `ValueError`: If required columns are missing.
+
 
 
 
