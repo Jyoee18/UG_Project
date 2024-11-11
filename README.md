@@ -94,7 +94,7 @@ pip install pandas
 ### Results:
 - The FASTA file will contain each sequence and identifier in the following format:
 
-  >Identifier
+  > Identifier
   Sequence
 
 ### Notes:
