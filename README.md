@@ -92,10 +92,7 @@ pip install pandas
   Output file will be `sequences.fasta`.
 
 ### Results:
-- The FASTA file will contain each sequence and identifier in the following format:
-
-  > Identifier
-  Sequence
+- The FASTA file will contain each sequence and identifier in this format: header(>) followed by the Identifier and sequence in the next line.
 
 ### Notes:
 - Error handling:
